@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,13 +13,15 @@ class Clock extends StatefulWidget {
 
 class _ClockState extends State<Clock> {
 
+  isPortrait()=> MediaQuery.of(context).size.height/MediaQuery.of(context).size.width >=1;
+
   double screenWidth(){
-    if( MediaQuery.of(context).orientation == Orientation.portrait )
+    if( isPortrait() /*MediaQuery.of(context).orientation == Orientation.portrait*/ )
       return MediaQuery.of(context).size.width ;
     else return MediaQuery.of(context).size.height ;
   }
   double screenHeight(){
-    if( MediaQuery.of(context).orientation == Orientation.portrait )
+    if(  isPortrait() /*MediaQuery.of(context).orientation == Orientation.portrait*/ )
       return MediaQuery.of(context).size.height ;
     else return MediaQuery.of(context).size.width ;
   }
@@ -44,7 +47,6 @@ class _ClockState extends State<Clock> {
 
   TextStyle timeStyle()=> TextStyle(
       fontFamily: 'DS' ,
-      fontSize: textScale(35) ,
       color: Colors.greenAccent ,
       fontWeight: FontWeight.w900);
 
@@ -67,7 +69,7 @@ class _ClockState extends State<Clock> {
           color: Colors.grey[300]
         ),
         margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).orientation == Orientation.portrait ? screenHeight()/8 :screenHeight()/25,
+            vertical: isPortrait() ? screenHeight()/8 :screenWidth()/8,
             horizontal: screenWidth()/15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,38 +97,62 @@ class _ClockState extends State<Clock> {
             ),*/
 
 
-            Container(
-              width: screenWidth()/2.7,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            Expanded(
+              child: Container(
+                width: screenWidth()/2.7,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                        child: Text('${fieldHour( hour(time) )}' ,style: timeStyle(),)),
-                  ),
+                    Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: AutoSizeText(
+                            '${fieldHour( hour(time) )}',
+                            style: timeStyle(),
+                            minFontSize: textScale(15),
+                            maxFontSize: textScale(40),
+                          )),
+                    ),
 
-                  Text(':',style: TextStyle(fontFamily: 'DS' ,fontSize: textScale(30)),),
+                    AutoSizeText(':',
+                      style: TextStyle(fontFamily: 'DS',),
+                      minFontSize: textScale(15),
+                      maxFontSize: textScale(40),
+                    ),
 
-                  Expanded(
-                    child: Container(
-                        alignment: Alignment.center,
-                        child: Text('${fieldMnt(time.minute)}' ,style: timeStyle().copyWith(fontWeight: FontWeight.w700),)),
-                  ),
+                    Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: AutoSizeText('${fieldMnt(time.minute)}' ,
+                            style: timeStyle().copyWith(fontWeight: FontWeight.w700),
+                            minFontSize: textScale(15),
+                            maxFontSize: textScale(40),
+                          )),
+                    ),
 
 
-                  Text(':',style: TextStyle(fontFamily: 'DS' ,fontSize: textScale(30)),),
+                    AutoSizeText(':',
+                      style: TextStyle(fontFamily: 'DS',),
+                      minFontSize: textScale(15),
+                      maxFontSize: textScale(40),
+                    ),
 
-                  Expanded(
-                    child: Container(
-                        alignment: Alignment.center,
-                        child: Text('${fieldScnd(time.second)}' ,style: timeStyle().copyWith(fontWeight: FontWeight.normal ,color: Colors.black87),)),
-                  ),
+                    Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: AutoSizeText('${fieldScnd(time.second)}' ,
+                            style: timeStyle().copyWith(fontWeight: FontWeight.normal ,color: Colors.black87),
+                            minFontSize: textScale(15),
+                            maxFontSize: textScale(40),
+                          )),
+                    ),
 
-                ],
+                  ],
+                ),
               ),
             ),
+
 
             Container(
               alignment: Alignment.center,
