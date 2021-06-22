@@ -16,12 +16,12 @@ class _ClockState extends State<Clock> {
   isPortrait()=> MediaQuery.of(context).size.height/MediaQuery.of(context).size.width >=1;
 
   double screenWidth(){
-    if( isPortrait() /*MediaQuery.of(context).orientation == Orientation.portrait*/ )
+    if( isPortrait() )
       return MediaQuery.of(context).size.width ;
     else return MediaQuery.of(context).size.height ;
   }
   double screenHeight(){
-    if(  isPortrait() /*MediaQuery.of(context).orientation == Orientation.portrait*/ )
+    if(  isPortrait() )
       return MediaQuery.of(context).size.height ;
     else return MediaQuery.of(context).size.width ;
   }
@@ -98,8 +98,10 @@ class _ClockState extends State<Clock> {
 
 
             Expanded(
+              flex: isPortrait() ?0 :1,
               child: Container(
                 width: screenWidth()/2.7,
+                margin: EdgeInsets.only(bottom: isPortrait() ? 10 :0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -111,14 +113,14 @@ class _ClockState extends State<Clock> {
                             '${fieldHour( hour(time) )}',
                             style: timeStyle(),
                             minFontSize: textScale(15),
-                            maxFontSize: textScale(40),
+                            maxFontSize: textScale(60),
                           )),
                     ),
 
                     AutoSizeText(':',
                       style: TextStyle(fontFamily: 'DS',),
                       minFontSize: textScale(15),
-                      maxFontSize: textScale(40),
+                      maxFontSize: textScale(60),
                     ),
 
                     Expanded(
@@ -127,7 +129,7 @@ class _ClockState extends State<Clock> {
                           child: AutoSizeText('${fieldMnt(time.minute)}' ,
                             style: timeStyle().copyWith(fontWeight: FontWeight.w700),
                             minFontSize: textScale(15),
-                            maxFontSize: textScale(40),
+                            maxFontSize: textScale(60),
                           )),
                     ),
 
@@ -135,7 +137,7 @@ class _ClockState extends State<Clock> {
                     AutoSizeText(':',
                       style: TextStyle(fontFamily: 'DS',),
                       minFontSize: textScale(15),
-                      maxFontSize: textScale(40),
+                      maxFontSize: textScale(60),
                     ),
 
                     Expanded(
@@ -144,7 +146,7 @@ class _ClockState extends State<Clock> {
                           child: AutoSizeText('${fieldScnd(time.second)}' ,
                             style: timeStyle().copyWith(fontWeight: FontWeight.normal ,color: Colors.black87),
                             minFontSize: textScale(15),
-                            maxFontSize: textScale(40),
+                            maxFontSize: textScale(60),
                           )),
                     ),
 
@@ -163,8 +165,8 @@ class _ClockState extends State<Clock> {
                     fit: BoxFit.contain,
                   )
                 ),
-                width: screenWidth()*0.70,
-                height: screenWidth()*0.70,
+                width: screenWidth()*0.60,
+                height: screenWidth()*0.60,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
