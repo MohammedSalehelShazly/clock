@@ -1,9 +1,11 @@
 # clock_app
-Responsive app..
+Responsive for app && web..
 
 Resposive for mobile
-![Screenshot_1624312278](https://user-images.githubusercontent.com/71941881/122901619-fcabeb80-d34d-11eb-9c0f-142b2855d5de.png)
+![Screenshot_1625261747](https://user-images.githubusercontent.com/71941881/124330721-4d151b80-db8e-11eb-87ba-41a6ceea1931.png)
+
 
 Resposive for web
-![clockAtWeb](https://user-images.githubusercontent.com/71941881/122911906-13574000-d358-11eb-9406-ba8fe759b5b6.png)
+![Untitled](https://user-images.githubusercontent.com/71941881/124330421-af215100-db8d-11eb-9b4f-d2327cc4ba61.png)
+
 
