@@ -45,10 +45,43 @@ class _ClockState extends State<Clock> {
     else return _day.toString();
   }
 
+  String weekDay(int _weekDay){
+    switch(_weekDay){
+      case 1 : return 'Mon' ; break;
+      case 2 : return 'Tue' ; break;
+      case 3 : return 'Wed' ; break;
+      case 3 : return 'Thu' ; break;
+      case 4 : return 'Fri' ; break;
+      case 5 : return 'Sat' ; break;
+      case 6 : return 'Sun' ; break;
+      default : return 'Sun' ; break;
+    }
+  }
+
+  String monthName(int _monthName){
+    switch(_monthName){
+      case 1 : return 'Jan' ; break;
+      case 2 : return 'Feb' ; break;
+      case 3 : return 'Mar' ; break;
+      case 4 : return 'Apr' ; break;
+      case 5 : return 'May' ; break;
+      case 6 : return 'Jun' ; break;
+      case 7 : return 'Jul' ; break;
+      case 8 : return 'Aug' ; break;
+      case 9 : return 'Sep' ; break;
+      case 10 : return 'Oct' ; break;
+      case 11 : return 'Nov' ; break;
+      case 12 : return 'Des' ; break;
+      default : return 'Dec' ; break;
+    }
+  }
+
   TextStyle timeStyle()=> TextStyle(
       fontFamily: 'DS' ,
       color: Colors.greenAccent ,
-      fontWeight: FontWeight.w900);
+      fontWeight: FontWeight.w900 ,
+      shadows: [Shadow(blurRadius: 3 ,color: Colors.greenAccent)]
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +102,7 @@ class _ClockState extends State<Clock> {
           color: Colors.grey[300]
         ),
         margin: EdgeInsets.symmetric(
-            vertical: isPortrait() ? screenHeight()/8 :screenWidth()/8,
+            vertical: isPortrait() ? screenHeight()/8 :screenWidth()/12,
             horizontal: screenWidth()/15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,30 +110,71 @@ class _ClockState extends State<Clock> {
           children: [
 
 
-            /*RichText(
-              text: TextSpan(
-                  style: TextStyle(fontSize: textScale(30) ,fontFamily: 'SourceCodePro' ,color: Colors.black ,fontWeight: FontWeight.bold),
-                  children: [
-                    TextSpan(
-                        text: time.year.toString() +'/'
-                    ),
-                    TextSpan(
-                        text: month(time.month) +'/'
-                    ),
-                    TextSpan(
-                        text: day(time.day),
-                        style: TextStyle(color:Colors.greenAccent ,shadows: [Shadow(blurRadius: 2)])
-                    ),
-
-                  ]
-              ),
-            ),*/
-
-
             Expanded(
-              flex: isPortrait() ?0 :1,
+              flex: isPortrait() ?0 :2,
               child: Container(
-                width: screenWidth()/2.7,
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(bottom: isPortrait() ? 10 :0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: AutoSizeText.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: '${fieldHour( hour(time) )}'),
+                              TextSpan(text: ' : '),
+                              TextSpan(text: '${fieldMnt(time.minute)}',
+                                style: timeStyle().copyWith(fontWeight: FontWeight.w700),),
+                              TextSpan(text: ' : '),
+                              TextSpan(text: '${fieldScnd(time.second)}',
+                                style: timeStyle().copyWith(fontWeight: FontWeight.normal ,color: Colors.black87 ,shadows: [Shadow(blurRadius: 0)]),),
+                            ]
+                          ),
+                        style: timeStyle(),
+                        minFontSize: textScale(25),
+                        maxFontSize: textScale(60),
+                      ),
+                    ),
+
+                    Container(
+                      alignment: Alignment.center,
+                      child: AutoSizeText.rich(
+                        TextSpan(
+                            style: TextStyle(color: Colors.black ,fontWeight: FontWeight.bold),
+                            children: [
+                              TextSpan(
+                                  text: weekDay(time.weekday).toUpperCase() +',  '
+                              ),
+                              TextSpan(
+                                  text: '${time.day}' +' ',
+                                  style: TextStyle(color:Colors.greenAccent ,shadows: [Shadow(blurRadius: 1 ,color: Colors.greenAccent)])
+                              ),
+                              TextSpan(
+                                  text: monthName(time.month).toUpperCase()
+                              ),
+                            ]
+                        ),
+                        minFontSize: textScale(15),
+                        maxFontSize: textScale(45),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+
+
+
+
+
+
+            /*Expanded(
+              flex: isPortrait() ?0 :2,
+              child: Container(color: Colors.red,
+                width: screenWidth()/1.5,
                 margin: EdgeInsets.only(bottom: isPortrait() ? 10 :0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -112,14 +186,14 @@ class _ClockState extends State<Clock> {
                           child: AutoSizeText(
                             '${fieldHour( hour(time) )}',
                             style: timeStyle(),
-                            minFontSize: textScale(15),
+                            minFontSize: textScale(30),
                             maxFontSize: textScale(60),
                           )),
                     ),
 
                     AutoSizeText(':',
                       style: TextStyle(fontFamily: 'DS',),
-                      minFontSize: textScale(15),
+                      minFontSize: textScale(30),
                       maxFontSize: textScale(60),
                     ),
 
@@ -128,7 +202,7 @@ class _ClockState extends State<Clock> {
                           alignment: Alignment.center,
                           child: AutoSizeText('${fieldMnt(time.minute)}' ,
                             style: timeStyle().copyWith(fontWeight: FontWeight.w700),
-                            minFontSize: textScale(15),
+                            minFontSize: textScale(30),
                             maxFontSize: textScale(60),
                           )),
                     ),
@@ -136,7 +210,7 @@ class _ClockState extends State<Clock> {
 
                     AutoSizeText(':',
                       style: TextStyle(fontFamily: 'DS',),
-                      minFontSize: textScale(15),
+                      minFontSize: textScale(30),
                       maxFontSize: textScale(60),
                     ),
 
@@ -145,7 +219,7 @@ class _ClockState extends State<Clock> {
                           alignment: Alignment.center,
                           child: AutoSizeText('${fieldScnd(time.second)}' ,
                             style: timeStyle().copyWith(fontWeight: FontWeight.normal ,color: Colors.black87),
-                            minFontSize: textScale(15),
+                            minFontSize: textScale(30),
                             maxFontSize: textScale(60),
                           )),
                     ),
@@ -153,11 +227,14 @@ class _ClockState extends State<Clock> {
                   ],
                 ),
               ),
-            ),
+            ),*/
+
+
 
 
             Container(
               alignment: Alignment.center,
+              margin: EdgeInsets.only(bottom: isPortrait() ? 0 :20),
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
