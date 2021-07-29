@@ -50,10 +50,10 @@ class _ClockState extends State<Clock> {
       case 1 : return 'Mon' ; break;
       case 2 : return 'Tue' ; break;
       case 3 : return 'Wed' ; break;
-      case 3 : return 'Thu' ; break;
-      case 4 : return 'Fri' ; break;
-      case 5 : return 'Sat' ; break;
-      case 6 : return 'Sun' ; break;
+      case 4 : return 'Thu' ; break;
+      case 5 : return 'Fri' ; break;
+      case 6 : return 'Sat' ; break;
+      case 7 : return 'Sun' ; break;
       default : return 'Sun' ; break;
     }
   }
